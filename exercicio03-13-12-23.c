@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include<string.h>
 /*Desenvolva uma struct "Produto" que contenha informações como nome, preço e quantidade em estoque. 
 Em seguida, desenvolva um menu para facilitar a escolha das opções:*/
 struct estoqueProdutos
@@ -28,14 +29,17 @@ int main()
     
 do
 {
+    
     /*1 - Realizar uma compra
 2 - Consultar estoque
 3 - Sair do programa. */
+
 printf("-------------Menu-------------\n");
 printf("1-----Realizar uma compra-----\n");
-printf("2-----consutar estoque--------\n");
-printf("3-----sair do programa--------\n");
+printf("2-----consultar estoque--------\n");
+printf("3-----sair do programa--------\n\t");
 scanf("%i", &menu);
+getchar();
 system("cls || clear");
 /*Escreva funções necessárias para calcular o valor total em estoque do produto e para atualizar a quantidade em
  estoque com base em uma compra. Crie um programa que utiliza essas funções para um produto.
@@ -53,14 +57,15 @@ system("cls || clear");
            printf("Digite a quantidade da compra.\n");
            scanf("%i", &compraquantidade);
             system("cls || clear");
+
             menosCompraEstoque(compraquantidade,i);
-            printf("Produto: %s\nPreco: %.2f\nvalor total da compra: %i",produto[i].nome,produto[i].preco,produto[i].quantidade*compraquantidade);
-             sleep(2);
+            printf("Produto: %s\nPreco: %.2f\nvalor total da compra: R$%.2f\n",produto[i].nome,produto[i].preco,produto[i].preco*compraquantidade);
+            sleep(2);
             system("cls || clear");
 
         }
         else{
-            printf("Produto não encontado.");
+            printf("Produto não encontrado.\n");
             system("cls || clear");
             sleep(2);
         }
@@ -68,32 +73,35 @@ system("cls || clear");
         break;
    
     case /* consultar estoque */ 2 :
-                printf("Digite o nome do produto que deseja consutar.\n");
+        printf("Digite o nome do produto que deseja consultar.\n");
         gets(nomeProduto);
         system("cls || clear");
         for ( i = 0; i < 2; i++)
         {
         if (strcmp(nomeProduto,produto[i].nome)==0)
         {
-            printf("Produto: %s\nPreco: %.2f\nvalor total da compra: %i",produto[i].nome,produto[i].preco,produto[i].quantidade*produto[i].preco);
-            printf("valor Total do estoque:\n",valorTotalEstoque(produto[i].preco,produto[i].quantidade));
-             sleep(2);
+            menosCompraEstoque(compraquantidade,i);
+            printf("Produto: %s\nPreco: %.2f\nvalor total da compra: R$%.2f\nValor total do estoque: R$%.2f\n",produto[i].nome,produto[i].preco,produto[i].preco,valorTotalEstoque(produto[i].preco,i));
+            sleep(2);
             system("cls || clear");
-
         }
         else{
-            printf("Produto não encontado.");
+            printf("Produto não encontrado.\n");
             system("cls || clear");
             sleep(2);
         }
+        } 
+        
         break;
    
     case /* sair */ 3 :
        printf("Grato pela preferencia");
         break;
-    
+
     default:
-        printf("Erro opcao invalida");
+        printf("Erro opcao invalida\n");
+        sleep(2);
+        system("cls || clear");
         break;
     }
     
@@ -101,10 +109,10 @@ system("cls || clear");
 }
 
 //Escreva funções necessárias para calcular o valor total em estoque do produto
-float valorTotalEstoque(float valoF,int quantidadeF)
+float valorTotalEstoque(float valorF,int quantidadeF)
 {
     float valorTotal;
-    valorTotal= valor*(float)quantidade;
+    valorTotal= valorF*(float)quantidadeF;
     return valorTotal;
 }
 
